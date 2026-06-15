@@ -1,0 +1,17 @@
+@keyframes grain-float {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.grain-float {
+  animation: grain-float 8s ease-in-out infinite;
+}
