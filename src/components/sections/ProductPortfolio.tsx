@@ -114,6 +114,23 @@ export function ProductPortfolio() {
             />
           ))}
         </div>
+        <div className="mt-8 rounded-[28px] border border-[var(--border)] bg-[linear-gradient(135deg,rgba(255,255,255,0.82),rgba(246,240,228,0.92))] p-6 shadow-[0_18px_40px_rgba(18,53,36,0.08)] sm:p-7">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <Badge className="bg-[rgba(255,255,255,0.78)]">Stay Tuned</Badge>
+              <h3 className="mt-4 font-[var(--font-heading)] text-3xl leading-tight text-[var(--foreground)] sm:text-4xl">
+                More Pure Select products are on the way.
+              </h3>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-[var(--muted)]">
+                We&apos;re expanding our portfolio with more carefully selected staples, pulses, and everyday grocery
+                essentials. Stay tuned for upcoming launches and wider availability.
+              </p>
+            </div>
+            <div className="rounded-[24px] bg-[rgba(18,53,36,0.05)] px-5 py-4 text-sm font-medium leading-6 text-[var(--foreground)] lg:max-w-xs">
+              New additions will appear here as soon as packaging, sourcing, and retail readiness are finalized.
+            </div>
+          </div>
+        </div>
         <ProductQuickView product={selectedProduct} onClose={() => setSelectedProduct(null)} />
         </Container>
       </section>

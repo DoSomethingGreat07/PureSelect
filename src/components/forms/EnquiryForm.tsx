@@ -20,7 +20,8 @@ export function EnquiryForm() {
   const [turnstileToken, setTurnstileToken] = useState("");
   const formStartedAt = useRef(Date.now());
   const honeypotId = useId();
-  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
+  const hasTurnstile = Boolean(turnstileSiteKey);
   const cityOptions = values.state ? indiaLocations[values.state] ?? [] : [];
 
   useEffect(() => {
@@ -74,7 +75,7 @@ export function EnquiryForm() {
       return;
     }
 
-    if (turnstileSiteKey && !turnstileToken) {
+    if (hasTurnstile && !turnstileToken) {
       setStatus("error");
       setMessage("Please complete the captcha before submitting.");
       return;
@@ -286,9 +287,16 @@ export function EnquiryForm() {
           placeholder="Tell us about your product needs, pack sizes, and delivery expectations."
         />
       </Field>
-      {turnstileSiteKey ? (
+      {hasTurnstile ? (
         <div className="sm:col-span-2">
-          <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
+          <Script
+            src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+            strategy="afterInteractive"
+            onError={() => {
+              setStatus("error");
+              setMessage("Captcha could not be loaded. Please refresh the page or try again later.");
+            }}
+          />
           <div
             className="cf-turnstile"
             data-sitekey={turnstileSiteKey}

@@ -16,7 +16,6 @@ import { BlinkitSection } from "@/components/sections/BlinkitSection";
 import { EnquirySection } from "@/components/sections/EnquirySection";
 import { ContactStrip } from "@/components/sections/ContactStrip";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
-import { MobileActionBar } from "@/components/layout/MobileActionBar";
 
 export default function HomePage() {
   return (
@@ -40,7 +39,6 @@ export default function HomePage() {
         <ContactStrip />
       </main>
       <FloatingWhatsApp />
-      <MobileActionBar />
       <Footer />
     </>
   );
