@@ -8,8 +8,6 @@ import { ProductPortfolio } from "@/components/sections/ProductPortfolio";
 import { RecipeSection } from "@/components/sections/RecipeSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { BusinessModelSection } from "@/components/sections/BusinessModelSection";
-import { WhyChooseSection } from "@/components/sections/WhyChooseSection";
-import { BlinkitSection } from "@/components/sections/BlinkitSection";
 import { EnquirySection } from "@/components/sections/EnquirySection";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 
@@ -17,15 +15,13 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <main className="pt-36 sm:pt-40">
+      <main className="pt-30 sm:pt-32">
         <HeroSection />
         <TrustMarquee />
         <StorySection />
         <BrandMetricsSection />
         <ProductPortfolio />
         <BusinessModelSection />
-        <WhyChooseSection />
-        <BlinkitSection />
         <TestimonialsSection />
         <RecipeSection />
         <EnquirySection />

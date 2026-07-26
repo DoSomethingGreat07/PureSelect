@@ -23,4 +23,5 @@ export interface Product {
   microStory: string;
   retailHighlight: string;
   bulkHighlight: string;
+  blinkitLink?: string;
 }

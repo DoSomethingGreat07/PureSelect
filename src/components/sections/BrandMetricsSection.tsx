@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/Container";
 
 export function BrandMetricsSection() {
   return (
-    <section className="full-bleed-section section-spacing section-white">
+    <section className="full-bleed-section section-spacing section-sand">
       <Container>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {brandMetrics.map((metric) => (

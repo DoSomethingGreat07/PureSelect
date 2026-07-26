@@ -13,16 +13,17 @@ export function ProductPortfolio() {
 
   return (
     <>
-      <section id="products" className="full-bleed-section section-anchor bg-[var(--background)] py-10 lg:py-14">
+      <section id="products" className="full-bleed-section section-anchor section-mist py-7 lg:py-9">
         <Container>
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--earth)]">Product Portfolio</p>
-              <h2 className="mt-3 font-[var(--font-heading)] text-3xl leading-tight text-[var(--foreground)] sm:text-4xl">
+              <h2 className="mt-2 font-[var(--font-heading)] text-[1.9rem] leading-tight text-[var(--foreground)] sm:text-[2.2rem]">
                 Explore the current Pure Select product range.
               </h2>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-[var(--muted)] sm:text-base">
-                Browse our available products in one clean list without category or use-case filters.
+              <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--muted)]">
+                Browse our available products in one clean list, including retail packs
+                available for Blinkit and business-ready supply options.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3 text-sm text-[var(--muted)]">
@@ -35,7 +36,7 @@ export function ProductPortfolio() {
               </div>
             </div>
           </div>
-          <div className="mt-6 grid items-stretch gap-4 lg:grid-cols-3">
+          <div className="mt-4 grid items-stretch gap-3 lg:grid-cols-3">
             {products.map((product) => (
               <ProductCard
                 key={product.name}

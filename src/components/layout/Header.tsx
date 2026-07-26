@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Leaf, Menu, X } from "lucide-react";
 import { navigationItems, siteConfig } from "@/data/siteConfig";
@@ -59,11 +60,17 @@ export function Header() {
         {/* Brand Logo */}
         <a
           href="#home"
-          className="focus-ring flex min-w-0 shrink-0 flex-col"
+          className="focus-ring flex min-w-0 shrink-0 items-center"
         >
-          <span className="font-[var(--font-heading)] text-2xl leading-none tracking-[0.02em] text-[var(--foreground)]">
-            {siteConfig.brandName}
-          </span>
+          <div className="relative h-[58px] w-[132px] overflow-hidden sm:h-[64px] sm:w-[146px]">
+            <Image
+              src="/images/logo/pure-select-logo-primary.png"
+              alt={`${siteConfig.brandName} logo`}
+              fill
+              priority
+              className="object-contain scale-[1.62] mix-blend-multiply opacity-95"
+            />
+          </div>
         </a>
 
         <div className="hidden items-center gap-6 lg:ml-auto lg:flex xl:gap-8">

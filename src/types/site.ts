@@ -12,5 +12,10 @@ export interface SiteConfig {
   location: string;
   whatsappLink: string;
   blinkitLink: string;
+  productBlinkitLinks: {
+    rawPeanuts: string;
+    roastedChanaDal: string;
+    rajmaChitra: string;
+  };
   socialLinks: SocialLink[];
 }

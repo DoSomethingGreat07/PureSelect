@@ -138,7 +138,7 @@ function buildCustomerConfirmation(values: ReturnType<typeof sanitizeEnquiryValu
     "",
     "Regards,",
     "Pure Select",
-    "care@pureselect.in",
+    "pureselectenterprises@gmail.com",
     "+91 72070 85910"
   ].join("\n");
 
@@ -173,7 +173,7 @@ function buildCustomerConfirmation(values: ReturnType<typeof sanitizeEnquiryValu
         <p style="margin: 0 0 14px; line-height: 1.7;">
           If you have anything urgent to add, you can simply reply to this email and our team will review it with your request.
         </p>
-        <p style="margin: 20px 0 0;">Regards,<br />Pure Select<br />care@pureselect.in<br />+91 72070 85910</p>
+        <p style="margin: 20px 0 0;">Regards,<br />Pure Select<br />pureselectenterprises@gmail.com<br />+91 72070 85910</p>
       </div>
     </div>
   `;

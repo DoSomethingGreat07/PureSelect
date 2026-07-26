@@ -18,10 +18,10 @@ export function SectionHeading({
       {eyebrow ? (
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--earth)]">{eyebrow}</p>
       ) : null}
-      <h2 className="mt-2 font-[var(--font-heading)] text-4xl leading-tight text-[var(--foreground)] sm:text-5xl">
+      <h2 className="mt-2 font-[var(--font-heading)] text-3xl leading-tight text-[var(--foreground)] sm:text-4xl">
         {title}
       </h2>
-      {description ? <p className="mt-3 text-base leading-7 text-[var(--muted)] sm:text-lg">{description}</p> : null}
+      {description ? <p className="mt-3 text-[0.98rem] leading-7 text-[var(--muted)] sm:text-[1.05rem]">{description}</p> : null}
     </div>
   );
 }

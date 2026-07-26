@@ -26,7 +26,7 @@ export function RecipeSection() {
   };
 
   return (
-    <section id="recipes" className="full-bleed-section section-spacing section-cream">
+    <section id="recipes" className="full-bleed-section section-spacing section-olive">
       <Container>
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading

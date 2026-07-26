@@ -10,9 +10,9 @@ const storyHighlights = [
 
 export function StorySection() {
   return (
-    <section id="our-story" className="full-bleed-section section-anchor section-spacing section-white">
+    <section id="our-story" className="full-bleed-section section-anchor section-spacing section-ivory">
       <Container>
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
           <div className="p-2 sm:p-4">
             <SectionHeading
               eyebrow="Our Story"
@@ -27,14 +27,14 @@ export function StorySection() {
               ))}
             </div>
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
-              <div className="card-surface p-6">
+              <div className="card-surface min-h-[190px] rounded-[30px] border-[rgba(18,53,36,0.22)] p-6 lg:min-h-[210px]">
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--earth)]">Mission</p>
                 <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
                   To make trusted, high-quality groceries accessible to every household and
                   business.
                 </p>
               </div>
-              <div className="card-surface p-6">
+              <div className="card-surface min-h-[190px] rounded-[30px] border-[rgba(18,53,36,0.22)] p-6 lg:min-h-[210px]">
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--earth)]">Vision</p>
                 <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
                   To become Telangana&apos;s most trusted grocery brand.
@@ -43,21 +43,24 @@ export function StorySection() {
             </div>
           </div>
 
-          <div className="grid gap-5">
+          <div className="grid gap-5 p-2 sm:p-4">
             <InfoCard
               icon={ShieldCheck}
               title="Quality First"
               description="Carefully selected products sourced from trusted suppliers."
+              className="min-h-[190px] rounded-[30px] border-[rgba(18,53,36,0.22)] p-6 lg:min-h-[210px]"
             />
             <InfoCard
               icon={Truck}
               title="Reliable Supply"
               description="Consistent product availability and dependable delivery."
+              className="min-h-[190px] rounded-[30px] border-[rgba(18,53,36,0.22)] p-6 lg:min-h-[210px]"
             />
             <InfoCard
               icon={PackageCheck}
               title="Hygienically Packed"
               description="Consumer-grade packaging standards."
+              className="min-h-[190px] rounded-[30px] border-[rgba(18,53,36,0.22)] p-6 lg:min-h-[210px]"
             />
           </div>
         </div>

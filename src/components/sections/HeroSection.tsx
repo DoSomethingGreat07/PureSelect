@@ -1,25 +1,12 @@
 import Image from "next/image";
-import { TrustBadges } from "./TrustBadges";
 
 export function HeroSection() {
   return (
     <section id="home" className="hero-section section-anchor">
       <div className="hero-inner">
-        <div className="relative z-10">
+        <div className="hero-pill-wrap">
           <span className="hero-eyebrow">Premium Telangana FMCG Brand</span>
-          <h1 className="hero-title text-balance">
-            Pure, Carefully Selected Groceries from Telangana
-          </h1>
-          <p className="hero-subtitle">Building Telangana&apos;s Next Trusted Grocery Brand</p>
-          <p className="hero-text">
-            Pure Select brings carefully selected grocery essentials from trusted sourcing
-            partners to households, restaurants, retailers, and institutional buyers.
-          </p>
-          <div className="mt-8">
-            <TrustBadges />
-          </div>
         </div>
-
         <div className="hero-visual">
           <div className="grain-float absolute left-[8%] top-[10%] h-28 w-28 rounded-full bg-[rgba(199,156,58,0.18)] blur-3xl" />
           <div className="absolute right-[8%] top-[18%] h-52 w-52 rounded-full bg-[rgba(23,55,39,0.14)] blur-3xl" />
@@ -55,6 +42,13 @@ export function HeroSection() {
             className="pack-blend absolute right-[5%] top-[27%] z-20 w-[34%] rotate-[11deg] object-contain drop-shadow-[0_26px_38px_rgba(23,55,39,0.16)]"
             priority
           />
+        </div>
+        <div className="hero-copy">
+          <p className="hero-subtitle lg:whitespace-nowrap">Building Telangana&apos;s Next Trusted Grocery Brand</p>
+          <p className="hero-text lg:whitespace-nowrap">
+            Pure Select brings carefully selected grocery essentials from trusted sourcing
+            partners to households, restaurants, retailers, and institutional buyers.
+          </p>
         </div>
       </div>
     </section>

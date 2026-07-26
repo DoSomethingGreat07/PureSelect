@@ -146,7 +146,7 @@ export function EnquiryForm() {
   };
 
   const fieldClassName =
-    "focus-ring mt-2 w-full rounded-2xl border border-[var(--border)] bg-white/70 px-4 py-3 text-sm text-[var(--foreground)] placeholder:text-[var(--muted)]";
+    "focus-ring mt-1.5 w-full rounded-2xl border border-[var(--border)] bg-white/70 px-3.5 py-2.5 text-sm text-[var(--foreground)] placeholder:text-[var(--muted)]";
   const fallbackMailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
     "New Pure Select business enquiry"
   )}`;
@@ -157,8 +157,8 @@ export function EnquiryForm() {
   }));
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <div className="rounded-[20px] border border-[rgba(18,53,36,0.1)] bg-[rgba(255,250,240,0.72)] p-4 text-sm text-[var(--foreground)] sm:col-span-2 lg:col-span-3">
+    <form onSubmit={handleSubmit} className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="rounded-[20px] border border-[rgba(18,53,36,0.1)] bg-[rgba(255,250,240,0.72)] p-4 text-sm text-[var(--foreground)] sm:col-span-2 xl:col-span-4">
         <p className="font-semibold text-[var(--foreground)]">Prefer a direct conversation?</p>
         <p className="mt-1 leading-6 text-[var(--muted)]">
           You can still send this form here, or reach Pure Select instantly over WhatsApp and email.
@@ -241,7 +241,7 @@ export function EnquiryForm() {
           ))}
         </select>
       </Field>
-      <Field label="Exact Address *" error={errors.exactAddress} className="sm:col-span-2 lg:col-span-3">
+      <Field label="Exact Address *" error={errors.exactAddress} className="sm:col-span-2 xl:col-span-4">
         <input
           name="exactAddress"
           value={values.exactAddress}
@@ -277,18 +277,18 @@ export function EnquiryForm() {
       <Field
         label="Requirement Description"
         error={errors.requirementDescription}
-        className="sm:col-span-2 lg:col-span-3"
+        className="sm:col-span-2 xl:col-span-4"
       >
         <textarea
           name="requirementDescription"
           value={values.requirementDescription}
           onChange={handleChange}
-          className={`${fieldClassName} min-h-16 resize-y`}
+          className={`${fieldClassName} min-h-14 resize-y`}
           placeholder="Optional notes about pack sizes or delivery expectations."
         />
       </Field>
       {hasTurnstile ? (
-        <div className="sm:col-span-2 lg:col-span-3">
+        <div className="sm:col-span-2 xl:col-span-4">
           <Script
             src="https://challenges.cloudflare.com/turnstile/v0/api.js"
             strategy="afterInteractive"
@@ -306,7 +306,7 @@ export function EnquiryForm() {
           />
         </div>
       ) : null}
-      <div className="sm:col-span-2 flex flex-col gap-3 lg:col-span-3">
+      <div className="sm:col-span-2 flex flex-col gap-2 xl:col-span-4">
         <Button type="submit" disabled={status === "submitting"} className="w-full sm:w-fit">
           {status === "submitting" ? "Sending enquiry..." : "Submit Enquiry"}
         </Button>
@@ -331,10 +331,10 @@ function Field({
 }: Readonly<{ label: string; error?: string; children: React.ReactNode; className?: string }>) {
   return (
     <label className={className}>
-      <span className="text-sm font-semibold text-[var(--foreground)]">{label}</span>
+      <span className="text-[13px] font-semibold text-[var(--foreground)]">{label}</span>
       {children}
       {error ? (
-        <span className="mt-2 block text-sm text-[var(--earth)]" role="alert">
+        <span className="mt-1.5 block text-[13px] text-[var(--earth)]" role="alert">
           {error}
         </span>
       ) : null}

@@ -4,9 +4,9 @@ import { EnquiryForm } from "@/components/forms/EnquiryForm";
 
 export function EnquirySection() {
   return (
-    <section id="enquiry" className="full-bleed-section section-anchor section-spacing section-cream">
+    <section id="enquiry" className="full-bleed-section section-anchor section-spacing section-lilac-warm">
       <Container>
-        <div className="card-surface p-6 sm:p-8 lg:p-8">
+        <div className="card-surface p-5 sm:p-6 lg:p-6">
           <SectionHeading
             eyebrow="Business Enquiry"
             title="Let&apos;s work together"

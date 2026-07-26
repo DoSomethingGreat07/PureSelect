@@ -22,7 +22,7 @@ export function TestimonialsSection() {
   };
 
   return (
-    <section id="reviews" className="full-bleed-section section-spacing section-white">
+    <section id="reviews" className="full-bleed-section section-spacing section-blush">
       <Container>
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading

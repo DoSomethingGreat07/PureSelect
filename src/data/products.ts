@@ -1,4 +1,5 @@
 import { Product } from "@/types/product";
+import { siteConfig } from "@/data/siteConfig";
 
 export const products: Product[] = [
   {
@@ -16,7 +17,8 @@ export const products: Product[] = [
     usageIdeas: ["Roasting at home", "Chutney bases", "Bulk kitchen prep"],
     microStory: "Best for everyday home use, pantry stocking, and clean retail display.",
     retailHighlight: "Available in retail-friendly packs for quick pantry restocks and Blinkit-led discovery.",
-    bulkHighlight: "Well suited for larger pantry programs, retail counters, and recurring raw material supply."
+    bulkHighlight: "Well suited for larger pantry programs, retail counters, and recurring raw material supply.",
+    blinkitLink: siteConfig.productBlinkitLinks.rawPeanuts
   },
   {
     name: "Roasted Chana Dal",
@@ -33,7 +35,8 @@ export const products: Product[] = [
     usageIdeas: ["Coconut chutney", "Dry snack mixes", "Bulk food service"],
     microStory: "A quick-commerce friendly staple that works for both home kitchens and busy counters.",
     retailHighlight: "An everyday kitchen essential that fits naturally into modern retail and app-led buying.",
-    bulkHighlight: "Great for food service counters, chutney prep teams, and larger recurring kitchen needs."
+    bulkHighlight: "Great for food service counters, chutney prep teams, and larger recurring kitchen needs.",
+    blinkitLink: siteConfig.productBlinkitLinks.roastedChanaDal
   },
   {
     name: "Rajma Chitra",
@@ -49,6 +52,7 @@ export const products: Product[] = [
     usageIdeas: ["Rajma masala", "Meal prep kitchens", "Restaurant gravies"],
     microStory: "Consistent grain quality for homes, cafés, and recurring kitchen operations.",
     retailHighlight: "A premium-looking consumer pack for home kitchens that care about clean presentation.",
-    bulkHighlight: "Reliable grain consistency for restaurants, cafés, and recurring kitchen operations."
+    bulkHighlight: "Reliable grain consistency for restaurants, cafés, and recurring kitchen operations.",
+    blinkitLink: siteConfig.productBlinkitLinks.rajmaChitra
   }
 ];
