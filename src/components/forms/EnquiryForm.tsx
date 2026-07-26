@@ -157,13 +157,13 @@ export function EnquiryForm() {
   }));
 
   return (
-    <form onSubmit={handleSubmit} className="grid gap-5 sm:grid-cols-2">
-      <div className="sm:col-span-2 rounded-[24px] border border-[rgba(18,53,36,0.1)] bg-[rgba(255,250,240,0.8)] p-5 text-sm text-[var(--foreground)]">
+    <form onSubmit={handleSubmit} className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="rounded-[20px] border border-[rgba(18,53,36,0.1)] bg-[rgba(255,250,240,0.72)] p-4 text-sm text-[var(--foreground)] sm:col-span-2 lg:col-span-3">
         <p className="font-semibold text-[var(--foreground)]">Prefer a direct conversation?</p>
-        <p className="mt-2 leading-6 text-[var(--muted)]">
+        <p className="mt-1 leading-6 text-[var(--muted)]">
           You can still send this form here, or reach Pure Select instantly over WhatsApp and email.
         </p>
-        <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-3 flex flex-col gap-3 sm:flex-row">
           <Button href={siteConfig.whatsappLink} target="_blank" rel="noreferrer" className="w-full sm:w-fit">
             Contact on WhatsApp
           </Button>
@@ -241,7 +241,7 @@ export function EnquiryForm() {
           ))}
         </select>
       </Field>
-      <Field label="Exact Address *" error={errors.exactAddress} className="sm:col-span-2">
+      <Field label="Exact Address *" error={errors.exactAddress} className="sm:col-span-2 lg:col-span-3">
         <input
           name="exactAddress"
           value={values.exactAddress}
@@ -271,24 +271,24 @@ export function EnquiryForm() {
           value={values.estimatedQuantity}
           onChange={handleChange}
           className={fieldClassName}
-          placeholder="500kg per month"
+          placeholder="500kg"
         />
       </Field>
       <Field
-        label="Requirement Description *"
+        label="Requirement Description"
         error={errors.requirementDescription}
-        className="sm:col-span-2"
+        className="sm:col-span-2 lg:col-span-3"
       >
         <textarea
           name="requirementDescription"
           value={values.requirementDescription}
           onChange={handleChange}
-          className={`${fieldClassName} min-h-32 resize-y`}
-          placeholder="Tell us about your product needs, pack sizes, and delivery expectations."
+          className={`${fieldClassName} min-h-16 resize-y`}
+          placeholder="Optional notes about pack sizes or delivery expectations."
         />
       </Field>
       {hasTurnstile ? (
-        <div className="sm:col-span-2">
+        <div className="sm:col-span-2 lg:col-span-3">
           <Script
             src="https://challenges.cloudflare.com/turnstile/v0/api.js"
             strategy="afterInteractive"
@@ -306,7 +306,7 @@ export function EnquiryForm() {
           />
         </div>
       ) : null}
-      <div className="sm:col-span-2 flex flex-col gap-3">
+      <div className="sm:col-span-2 flex flex-col gap-3 lg:col-span-3">
         <Button type="submit" disabled={status === "submitting"} className="w-full sm:w-fit">
           {status === "submitting" ? "Sending enquiry..." : "Submit Enquiry"}
         </Button>

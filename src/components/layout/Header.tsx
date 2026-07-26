@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Leaf, Menu, X } from "lucide-react";
 import { navigationItems, siteConfig } from "@/data/siteConfig";
 import { Button } from "@/components/ui/Button";
 import { MobileMenu } from "./MobileMenu";
@@ -45,8 +45,17 @@ export function Header() {
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
+      <a
+        href={siteConfig.blinkitLink}
+        target="_blank"
+        rel="noreferrer"
+        className="focus-ring flex items-center justify-center gap-3 bg-[#171717] px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-black"
+      >
+        <Leaf size={16} className="shrink-0 text-white/80" />
+        <span className="text-white">We are live in Hyderabad. Order now on Blinkit!</span>
+        <Leaf size={16} className="shrink-0 text-white/80" />
+      </a>
       <div className="site-gutters flex w-full items-center justify-between py-3">
-        
         {/* Brand Logo */}
         <a
           href="#home"
@@ -55,50 +64,49 @@ export function Header() {
           <span className="font-[var(--font-heading)] text-2xl leading-none tracking-[0.02em] text-[var(--foreground)]">
             {siteConfig.brandName}
           </span>
-
-          <span className="mt-1 text-[9px] font-bold uppercase tracking-[0.2em] text-[var(--earth)] sm:text-[10px] sm:tracking-[0.28em]">
-            From Telangana Farms to Indian Kitchens
-          </span>
         </a>
 
-        {/* Desktop Navigation */}
-        <nav
-          aria-label="Primary navigation"
-          className="hidden items-center gap-8 lg:flex"
-        >
-          {navigationItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className={`focus-ring whitespace-nowrap rounded-full px-2 py-1 text-sm font-semibold transition ${
-                activeHref === item.href
-                  ? "bg-[rgba(18,53,36,0.08)] text-[var(--primary)]"
-                  : "text-[var(--foreground)] hover:text-[var(--earth)]"
-              }`}
+        <div className="hidden items-center gap-6 lg:ml-auto lg:flex xl:gap-8">
+          {/* Desktop Navigation */}
+          <nav
+            aria-label="Primary navigation"
+            className="flex items-center gap-8"
+          >
+            {navigationItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className={`focus-ring whitespace-nowrap rounded-full px-2 py-1 text-sm font-semibold transition ${
+                  activeHref === item.href
+                    ? "bg-[rgba(18,53,36,0.08)] text-[var(--primary)]"
+                    : "text-[var(--foreground)] hover:text-[var(--earth)]"
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Desktop Buttons */}
+          <div className="shrink-0 items-center gap-3 lg:flex">
+            <Button
+              href={siteConfig.blinkitLink}
+              target="_blank"
+              rel="noreferrer"
+              variant="secondary"
+              className="text-sm font-semibold tracking-wide"
             >
-              {item.label}
-            </a>
-          ))}
-        </nav>
+              Shop on Blinkit
+            </Button>
 
-        {/* Desktop Buttons */}
-        <div className="hidden shrink-0 items-center gap-3 lg:flex">
-          <Button
-            href={siteConfig.blinkitLink}
-            target="_blank"
-            rel="noreferrer"
-            className="text-sm font-semibold tracking-wide"
-          >
-            Shop on Blinkit
-          </Button>
-
-          <Button
-            href="#enquiry"
-            variant="secondary"
-            className="text-sm font-semibold tracking-wide"
-          >
-            Bulk Enquiry
-          </Button>
+            <Button
+              href="#enquiry"
+              variant="secondary"
+              className="text-sm font-semibold tracking-wide"
+            >
+              Bulk Enquiry
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Menu Button */}

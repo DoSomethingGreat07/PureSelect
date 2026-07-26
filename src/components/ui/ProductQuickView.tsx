@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Product } from "@/types/product";
 import { Button } from "./Button";
 import { Badge } from "./Badge";
@@ -13,14 +13,6 @@ interface ProductQuickViewProps {
 
 export function ProductQuickView({ product, onClose }: Readonly<ProductQuickViewProps>) {
   if (!product) return null;
-
-  const handleEnquire = () => {
-    document.dispatchEvent(new CustomEvent("prefill-enquiry", { detail: product.name }));
-    onClose();
-    setTimeout(() => {
-      document.getElementById("enquiry")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 120);
-  };
 
   return (
     <div className="fixed inset-0 z-[10000] flex items-end justify-center bg-[rgba(18,53,36,0.42)] p-4 sm:items-center sm:p-6">
@@ -96,10 +88,6 @@ export function ProductQuickView({ product, onClose }: Readonly<ProductQuickView
             </div>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button onClick={handleEnquire} className="gap-2">
-                Enquire For This Product
-                <ArrowRight size={16} />
-              </Button>
               <Button href="#products" variant="secondary" onClick={() => onClose()}>
                 Back to Portfolio
               </Button>

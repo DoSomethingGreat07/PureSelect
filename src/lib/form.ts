@@ -23,7 +23,7 @@ const businessNamePattern = /^[A-Za-z0-9][A-Za-z0-9\s&().,'/-]{1,99}$/;
 const villagePattern = /^[A-Za-z0-9][A-Za-z0-9\s.,'/-]{1,79}$/;
 const quantityPattern = /^(?=.{3,60}$)[A-Za-z0-9\s.,/%+-]+$/;
 const addressPattern = /^(?=.{10,180}$)[A-Za-z0-9\s#,./'()-]+$/;
-const requirementPattern = /^(?=.{20,400}$)[A-Za-z0-9\s,.'()/%&+-]+$/;
+const requirementPattern = /^(?=.{5,240}$)[A-Za-z0-9\s,.'()/%&+-]+$/;
 
 export const enquirySchema = z
   .object({
@@ -44,11 +44,11 @@ export const enquirySchema = z
     exactAddress: z.string().trim().regex(addressPattern, "Enter a complete address with at least 10 characters."),
     businessType: z.enum(businessTypeOptions),
     productRequirement: z.string().trim().min(1, "Product requirement is required."),
-    estimatedQuantity: z.string().trim().regex(quantityPattern, "Enter a valid quantity such as 500kg per month."),
+    estimatedQuantity: z.string().trim().regex(quantityPattern, "Enter a valid quantity such as 500kg."),
     requirementDescription: z
       .string()
       .trim()
-      .regex(requirementPattern, "Enter at least 20 characters with a clear requirement description.")
+      .refine((value) => !value || requirementPattern.test(value), "Enter a short valid requirement description.")
   })
   .superRefine((values, context) => {
     const allowedCities = indiaLocations[values.state] ?? [];

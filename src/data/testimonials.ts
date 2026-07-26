@@ -11,7 +11,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: "Karthik Subramanian",
-    city: "Chennai",
+    city: "Hyderabad",
     rating: 5,
     initials: "KS",
     review:
@@ -19,7 +19,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: "Priya Deshpande",
-    city: "Pune",
+    city: "Hyderabad",
     rating: 5,
     initials: "PD",
     review:
@@ -27,7 +27,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: "Rahul Mehta",
-    city: "Mumbai",
+    city: "Hyderabad",
     rating: 5,
     initials: "RM",
     review:
@@ -35,7 +35,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: "Sneha Kulkarni",
-    city: "Bengaluru",
+    city: "Hyderabad",
     rating: 5,
     initials: "SK",
     review:
@@ -51,7 +51,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: "Lakshmi Iyer",
-    city: "Coimbatore",
+    city: "Hyderabad",
     rating: 5,
     initials: "LI",
     review:
@@ -59,7 +59,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: "Aditya Joshi",
-    city: "Bengaluru",
+    city: "Hyderabad",
     rating: 5,
     initials: "AJ",
     review:

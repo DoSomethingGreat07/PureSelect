@@ -1,7 +1,4 @@
 import Image from "next/image";
-import { ArrowRight, ShoppingBag } from "lucide-react";
-import { siteConfig } from "@/data/siteConfig";
-import { Button } from "@/components/ui/Button";
 import { TrustBadges } from "./TrustBadges";
 
 export function HeroSection() {
@@ -18,22 +15,7 @@ export function HeroSection() {
             Pure Select brings carefully selected grocery essentials from trusted sourcing
             partners to households, restaurants, retailers, and institutional buyers.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button
-              href={siteConfig.blinkitLink}
-              target="_blank"
-              rel="noreferrer"
-              className="gap-2"
-            >
-              <ShoppingBag size={16} />
-              Shop on Blinkit
-            </Button>
-            <Button href="#enquiry" variant="secondary" className="gap-2">
-              Bulk Orders & Business Enquiries
-              <ArrowRight size={16} />
-            </Button>
-          </div>
-          <div className="mt-10">
+          <div className="mt-8">
             <TrustBadges />
           </div>
         </div>

@@ -1,8 +1,7 @@
 import Image from "next/image";
-import { ArrowRight, Clock3, ShieldCheck, ShoppingBag, Sparkles } from "lucide-react";
+import { Clock3, ShieldCheck, ShoppingBag, Sparkles } from "lucide-react";
 import { siteConfig } from "@/data/siteConfig";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function BlinkitSection() {
@@ -17,7 +16,12 @@ export function BlinkitSection() {
               description="Order Pure Select products directly through Blinkit for convenient household grocery shopping."
             />
             <div className="mt-6 flex items-center gap-3">
-              <div className="card-surface flex items-center gap-3 px-4 py-3">
+              <a
+                href={siteConfig.blinkitLink}
+                target="_blank"
+                rel="noreferrer"
+                className="card-surface focus-ring flex items-center gap-3 px-4 py-3 transition hover:-translate-y-0.5"
+              >
                 <Image
                   src="/images/products/blinkit.png"
                   alt="Blinkit logo"
@@ -26,16 +30,12 @@ export function BlinkitSection() {
                   className="h-8 w-8 object-contain"
                 />
                 <span className="text-sm font-semibold text-[var(--foreground)]">Available on Blinkit</span>
-              </div>
+              </a>
             </div>
             <p className="mt-6 text-base leading-7 text-[var(--muted)] sm:text-lg">
               The website serves both everyday consumers and supply partners, so Blinkit is
               featured prominently without overshadowing Pure Select&apos;s broader business model.
             </p>
-            <Button href={siteConfig.blinkitLink} target="_blank" rel="noreferrer" className="mt-8 gap-2">
-              Shop Now on Blinkit
-              <ArrowRight size={16} />
-            </Button>
           </div>
           <div className="card-surface overflow-hidden">
             <div className="rounded-[28px] bg-[linear-gradient(145deg,#f3dc8a,#f7e9b9_38%,#efe3b0)] p-5 sm:p-6">

@@ -155,18 +155,18 @@ select {
 
 /* Consistent vertical spacing */
 .section-spacing {
-  padding-block: 72px;
+  padding-block: 44px;
 }
 
 @media (min-width: 768px) {
   .section-spacing {
-    padding-block: 92px;
+    padding-block: 56px;
   }
 }
 
 @media (min-width: 1024px) {
   .section-spacing {
-    padding-block: 112px;
+    padding-block: 68px;
   }
 }
 

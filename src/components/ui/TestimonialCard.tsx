@@ -3,7 +3,7 @@ import { Testimonial } from "@/types/testimonial";
 
 export function TestimonialCard({ testimonial }: Readonly<{ testimonial: Testimonial }>) {
   return (
-    <article className="card-surface h-full p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_44px_rgba(35,48,31,0.14)]">
+    <article className="card-surface h-full min-w-[300px] p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_44px_rgba(35,48,31,0.14)] sm:min-w-[360px] lg:min-w-[420px]">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent-soft)] text-sm font-bold text-[var(--foreground)]">
