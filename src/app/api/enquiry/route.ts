@@ -22,6 +22,10 @@ function getSmtpTransport() {
     host,
     port,
     secure: port === 465,
+    requireTLS: port !== 465,
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 20000,
     auth: {
       user,
       pass
@@ -91,9 +95,9 @@ function buildMessage(values: ReturnType<typeof sanitizeEnquiryValues>) {
       <div style="padding: 28px;">
         <div style="margin: 0 0 20px; padding: 16px 18px; background: #f6f0e4; border-radius: 18px;">
           <p style="margin: 0 0 8px; font-weight: 700;">Primary Contact</p>
-          <p style="margin: 0 0 6px;">Customer: ${values.fullName}</p>
-          <p style="margin: 0 0 6px;">Email: <a href="mailto:${values.email}" style="color: #163825;">${values.email}</a></p>
-          <p style="margin: 0;">Phone: <a href="tel:${values.mobileNumber}" style="color: #163825;">${values.mobileNumber}</a></p>
+          <p style="margin: 0 0 6px;">Customer: ${escapeHtml(values.fullName)}</p>
+          <p style="margin: 0 0 6px;">Email: <a href="mailto:${escapeHtml(values.email)}" style="color: #163825;">${escapeHtml(values.email)}</a></p>
+          <p style="margin: 0;">Phone: <a href="tel:${escapeHtml(values.mobileNumber)}" style="color: #163825;">${escapeHtml(values.mobileNumber)}</a></p>
         </div>
         <p style="margin: 0 0 14px; line-height: 1.7;">Use reply in your inbox to respond directly to the customer. Their enquiry details are listed below.</p>
         <table style="border-collapse: collapse; width: 100%; max-width: 720px;">
@@ -159,7 +163,7 @@ function buildCustomerConfirmation(values: ReturnType<typeof sanitizeEnquiryValu
         <h2 style="margin: 10px 0 0; font-size: 28px; line-height: 1.15;">Your enquiry has been received</h2>
       </div>
       <div style="padding: 28px;">
-        <p style="margin: 0 0 14px;">Hi ${values.fullName},</p>
+        <p style="margin: 0 0 14px;">Hi ${escapeHtml(values.fullName)},</p>
         <p style="margin: 0 0 14px; line-height: 1.7;">
           Thank you for reaching out to Pure Select. We have received your enquiry and our team will get back to you soon.
         </p>
@@ -234,19 +238,19 @@ export async function POST(request: Request) {
     if (!transport) {
       return NextResponse.json(
         {
-          message: "SMTP is not configured. Add SMTP env values in .env.local before using the enquiry form."
+          message: "Email enquiries are temporarily unavailable. Please contact us by WhatsApp."
         },
         { status: 500 }
       );
     }
 
     const to = process.env.ENQUIRY_TO_EMAIL || siteConfig.email;
-    const from = process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER;
+    const from = process.env.SMTP_FROM_EMAIL || "Pure Select <care@pureselect.in>";
 
     if (!to || !from) {
       return NextResponse.json(
         {
-          message: "Recipient email is missing. Add ENQUIRY_TO_EMAIL or SMTP_USER in .env.local."
+          message: "Email enquiries are temporarily unavailable. Please contact us by WhatsApp."
         },
         { status: 500 }
       );
@@ -281,10 +285,10 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ message: "Enquiry sent successfully.", confirmationSent });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
-        message: error instanceof Error ? error.message : "Unable to send the enquiry right now."
+        message: "Unable to send the enquiry right now. Please try again or contact us by WhatsApp."
       },
       { status: 500 }
     );

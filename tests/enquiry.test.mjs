@@ -39,7 +39,8 @@ function load(file) {
   return fixtureModule.exports;
 }
 
-Object.assign(process.env, { SMTP_HOST: 'smtp.example.com', SMTP_USER: 'owner@example.com', SMTP_PASS: 'test-only', SMTP_FROM_EMAIL: 'sender@example.com' });
+Object.assign(process.env, { SMTP_HOST: 'smtp.example.com', SMTP_USER: 'care@pureselect.in', SMTP_PASS: 'test-only' });
+delete process.env.SMTP_FROM_EMAIL;
 delete process.env.ENQUIRY_TO_EMAIL;
 delete process.env.TURNSTILE_SECRET_KEY;
 global.fetch = async () => Response.json({ success: captchaOK });
@@ -54,6 +55,8 @@ test("enquiry delivery, validation, product options, and captcha", async () => {
     assert.equal(sent.length, 2);
     assert.equal(sent[0].to, 'pureselectenterprises@gmail.com');
     assert.equal(sent[0].replyTo, 'customer@example.com');
+    assert.ok(sent.every(message => message.from === 'Pure Select <care@pureselect.in>'));
+    assert.equal(sent[1].to, 'customer@example.com');
     assert.equal(sent[1].replyTo, 'pureselectenterprises@gmail.com');
     assert.ok(sent.every(m => m.text.includes('Rice & <millet>') && m.html.includes('Rice &amp; &lt;millet&gt;')));
     console.log('PASS: both emails, intended business recipient, reply addresses, Other details and HTML escaping');
@@ -72,6 +75,7 @@ test("enquiry delivery, validation, product options, and captcha", async () => {
     res = await submit(valid);
     assert.equal(res.status, 500);
     assert.equal(sent.length, 0);
+    assert.ok(!(await res.json()).message.includes('Simulated SMTP failure'));
     failAt = 2;
     res = await submit(valid);
     assert.equal(res.status, 200);
@@ -91,5 +95,17 @@ test("enquiry delivery, validation, product options, and captcha", async () => {
     res = await submit({ ...valid, turnstileToken: 'test' });
     assert.equal(res.status, 200);
     console.log('PASS: missing, rejected and successful captcha paths');
+    sent.length = 0;
+    delete process.env.TURNSTILE_SECRET_KEY;
+    res = await submit({ ...valid, fullName: "Ravi O'Neil" });
+    assert.equal(res.status, 200);
+    assert.ok(sent.every(message => !message.html.includes("Ravi O'Neil") && message.html.includes('Ravi O&#39;Neil')));
+    delete process.env.SMTP_PASS;
+    sent.length = 0;
+    res = await submit(valid);
+    assert.equal(res.status, 500);
+    assert.equal(sent.length, 0);
+    assert.ok(!(await res.json()).message.includes('SMTP'));
+    console.log('PASS: escaped customer names and missing business credentials');
     console.log('All tests used a mocked email transport and mocked captcha. No messages sent.');
 });

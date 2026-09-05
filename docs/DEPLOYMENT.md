@@ -7,6 +7,29 @@ Branch: `main`
 
 The repository includes source, image assets, the npm lockfile, and CI. Environment files, dependencies, build output, local tooling, and test artifacts are ignored. `.env.example` is the only environment file intended for Git.
 
+## Deploy with GoDaddy Node.js Hosting
+
+Use the Node.js Hosting product for this Next.js app. Connect the GitHub repository and branch `main`, with the repository root as the app root. The project uses Node.js 22, `npm ci`, `npm run build`, and `npm start`.
+
+In the hosting secrets/environment screen, add the public values from `.env.example`, then configure the business mailbox:
+
+```dotenv
+SMTP_HOST=smtpout.secureserver.net
+SMTP_PORT=465
+SMTP_USER=care@pureselect.in
+SMTP_PASS=REPLACE_WITH_BUSINESS_MAILBOX_PASSWORD
+SMTP_FROM_EMAIL=Pure Select <care@pureselect.in>
+ENQUIRY_TO_EMAIL=pureselectenterprises@gmail.com
+```
+
+Enter the password for the `care@pureselect.in` mailbox privately in GoDaddy, not the GoDaddy account password. The repository example and local configuration deliberately leave this password empty. Never commit credentials. Revoke the previously exposed personal Gmail app password in Google account settings; removing it from this project does not revoke it.
+
+These settings follow [GoDaddy Professional Email SMTP documentation](https://www.godaddy.com/en-in/help/use-imap-settings-to-add-my-professional-email-to-a-client-32204). Confirm the mailbox allows SMTP access. Keep existing email DNS records when connecting the website domain.
+
+Business notifications come from **Pure Select <care@pureselect.in>** and go to **pureselectenterprises@gmail.com**, with **Reply-To set to the customer's submitted email**. Customer acknowledgements use the same business sender and reply to the business enquiry inbox. Customer contact details appear in the message; they are supplied by the customer, not identity-verified. WhatsApp opens the customer's own account to message the business number.
+
+Configure both Turnstile keys for the deployment hostname before accepting public enquiries. Review the preview, then publish and connect `pureselect.in` and `www.pureselect.in` using GoDaddy's supplied domain settings. Rebuild after changing public environment values. Test actual inbox delivery after configuring the mailbox; mocked tests do not verify delivery.
+
 ## Deploy with Vercel
 
 1. Push the reviewed changes to the GitHub repository.
