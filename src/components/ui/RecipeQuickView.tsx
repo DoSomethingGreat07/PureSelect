@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Clock3, Soup, X } from "lucide-react";
 import { Recipe } from "@/types/recipe";
+import { Modal } from "./Modal";
 
 interface RecipeQuickViewProps {
   recipe: Recipe | null;
@@ -13,7 +14,7 @@ export function RecipeQuickView({ recipe, onClose }: Readonly<RecipeQuickViewPro
   if (!recipe) return null;
 
   return (
-    <div className="fixed inset-0 z-[10000] flex items-end justify-center bg-[rgba(18,53,36,0.42)] p-4 sm:items-center sm:p-6">
+    <Modal label={`${recipe.title} recipe`} onClose={onClose} className="max-w-3xl">
       <div className="card-surface relative w-full max-w-3xl overflow-hidden rounded-[32px] bg-[var(--cream)]">
         <button
           type="button"
@@ -86,6 +87,6 @@ export function RecipeQuickView({ recipe, onClose }: Readonly<RecipeQuickViewPro
           </div>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 }

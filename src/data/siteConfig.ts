@@ -4,8 +4,10 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pureselect.in";
 const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "917207085910";
 const defaultBlinkitLink =
   "https://blinkit.com/prn/pure-select-raw-peanuts-palli/prid/793784?srsltid=AfmBOooLTIyM8EXCWTCovaJNvKI7Vebk_vKDcOZ00hfIVFzxuNXzPplW";
-const defaultRoastedChanaDalBlinkitLink = defaultBlinkitLink;
-const defaultRajmaChitraBlinkitLink = defaultBlinkitLink;
+const defaultRoastedChanaDalBlinkitLink =
+  "https://blinkit.com/prn/pure-select-roasted-chana-dal-putnalu/prid/798934";
+const defaultRajmaChitraBlinkitLink =
+  "https://blinkit.com/prn/pure-select-rajma-chitra/prid/799507";
 
 export const siteConfig: SiteConfig = {
   brandName: "Pure Select",
@@ -41,6 +43,5 @@ export const navigationItems = [
   { label: "Home", href: "#home" },
   { label: "Our Story", href: "#our-story" },
   { label: "Products", href: "#products" },
-  { label: "Business Supply", href: "#business-supply" },
-  { label: "Enquiry", href: "#enquiry" }
+  { label: "Business Supply", href: "#business-supply" }
 ];

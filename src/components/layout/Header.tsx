@@ -1,16 +1,32 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Leaf, Menu, X } from "lucide-react";
 import { navigationItems, siteConfig } from "@/data/siteConfig";
 import { Button } from "@/components/ui/Button";
 import { MobileMenu } from "./MobileMenu";
 
 export function Header() {
+  const headerRef = useRef<HTMLElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [activeHref, setActiveHref] = useState("#home");
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    const updateHeight = () => {
+      document.documentElement.style.setProperty("--site-header-height", `${header.getBoundingClientRect().height}px`);
+    };
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(header);
+    return () => {
+      observer.disconnect();
+      document.documentElement.style.removeProperty("--site-header-height");
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,7 +40,7 @@ export function Header() {
 
       let current = sections[0];
       for (const section of sections) {
-        if (scrollTop + 160 >= section.offsetTop) {
+        if (scrollTop + (headerRef.current?.offsetHeight ?? 148) + 16 >= section.offsetTop) {
           current = section;
         }
       }
@@ -39,7 +55,7 @@ export function Header() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[9999] w-full border-b border-[var(--border)] bg-[rgba(253,249,238,0.95)] shadow-md backdrop-blur-md">
+    <header ref={headerRef} className="fixed top-0 left-0 right-0 z-[9999] w-full border-b border-[var(--border)] bg-[rgba(253,249,238,0.95)] shadow-md backdrop-blur-md">
       <div className="absolute inset-x-0 top-0 h-1 bg-[rgba(18,53,36,0.08)]">
         <div
           className="h-full bg-[linear-gradient(90deg,var(--accent),var(--primary))] transition-[width] duration-150"

@@ -12,6 +12,12 @@ import { Button } from "@/components/ui/Button";
 
 type Errors = Partial<Record<keyof EnquiryFormValues, string>>;
 
+const additionalProductGroups = [
+  { label: "Pulses", items: ["Toor Dal", "Moong Dal", "Chana Dal", "Urad Dal", "Whole Chana"] },
+  { label: "Cereals / Grains", items: ["Rice", "Poha (Flattened Rice)", "Idli Rava", "Puffed Rice"] },
+  { label: "Secondary Staples", items: ["Roasted Peanuts", "Soya Chunks / Meal Maker"] }
+];
+
 export function EnquiryForm() {
   const [values, setValues] = useState<EnquiryFormValues>(initialEnquiryValues);
   const [errors, setErrors] = useState<Errors>({});
@@ -27,7 +33,12 @@ export function EnquiryForm() {
   useEffect(() => {
     const listener = (event: Event) => {
       const customEvent = event as CustomEvent<string>;
-      setValues((current) => ({ ...current, productRequirement: customEvent.detail || current.productRequirement }));
+      setValues((current) => ({
+        ...current,
+        productRequirement: customEvent.detail || current.productRequirement,
+        otherProductRequirement: customEvent.detail ? "" : current.otherProductRequirement
+      }));
+      setErrors((current) => ({ ...current, productRequirement: undefined, otherProductRequirement: undefined }));
     };
 
     document.addEventListener("prefill-enquiry", listener);
@@ -57,6 +68,12 @@ export function EnquiryForm() {
     if (name === "state") {
       setValues((current) => ({ ...current, state: value, city: "" }));
       setErrors((current) => ({ ...current, state: undefined, city: undefined }));
+      return;
+    }
+
+    if (name === "productRequirement") {
+      setValues((current) => ({ ...current, productRequirement: value, otherProductRequirement: "" }));
+      setErrors((current) => ({ ...current, productRequirement: undefined, otherProductRequirement: undefined }));
       return;
     }
 
@@ -131,12 +148,15 @@ export function EnquiryForm() {
         throw new Error(errorMessage);
       }
 
+      const result = (await response.json()) as { confirmationSent?: boolean };
       setValues(initialEnquiryValues);
       setErrors({});
       setTurnstileToken("");
       formStartedAt.current = Date.now();
       setStatus("success");
-      setMessage("Thank you. Your enquiry has been received. Our team will contact you shortly.");
+      setMessage(result.confirmationSent === false
+        ? "Thank you. Your enquiry has been received, but we could not send a confirmation email. Our team will contact you shortly."
+        : "Thank you. Your enquiry has been received. Our team will contact you shortly.");
     } catch (error) {
       setStatus("error");
       setMessage(
@@ -263,8 +283,30 @@ export function EnquiryForm() {
               {product.label}
             </option>
           ))}
+          {additionalProductGroups.map((group) => (
+            <optgroup key={group.label} label={group.label}>
+              {group.items.map((item) => (
+                <option key={item} value={item}>{item}</option>
+              ))}
+            </optgroup>
+          ))}
+          <option value="Other">OTHER</option>
         </select>
       </Field>
+      {values.productRequirement === "Other" ? (
+        <Field label="Other" error={errors.otherProductRequirement}>
+          <input
+            name="otherProductRequirement"
+            value={values.otherProductRequirement}
+            onChange={handleChange}
+            className={fieldClassName}
+            placeholder="Please specify other"
+            maxLength={120}
+            aria-required="true"
+            aria-invalid={Boolean(errors.otherProductRequirement)}
+          />
+        </Field>
+      ) : null}
       <Field label="Estimated Quantity Required *" error={errors.estimatedQuantity}>
         <input
           name="estimatedQuantity"

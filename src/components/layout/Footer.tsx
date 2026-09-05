@@ -27,11 +27,13 @@ export function Footer() {
                   {item.label}
                 </a>
               ))}
-              <a href="#privacy" className="focus-ring w-fit hover:text-[var(--cream)]">
+              <a href="/privacy" target="_blank" rel="noopener noreferrer" className="focus-ring w-fit hover:text-[var(--cream)]">
                 Privacy Policy
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
-              <a href="#terms" className="focus-ring w-fit hover:text-[var(--cream)]">
+              <a href="/terms" target="_blank" rel="noopener noreferrer" className="focus-ring w-fit hover:text-[var(--cream)]">
                 Terms & Conditions
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
           </div>

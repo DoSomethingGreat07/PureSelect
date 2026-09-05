@@ -18,6 +18,7 @@ export interface EnquiryFormValues {
   exactAddress: string;
   businessType: BusinessType;
   productRequirement: string;
+  otherProductRequirement: string;
   estimatedQuantity: string;
   requirementDescription: string;
 }

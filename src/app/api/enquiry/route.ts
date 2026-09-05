@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
+import { siteConfig } from "@/data/siteConfig";
 import { enquirySchema, sanitizeEnquiryValues } from "@/lib/form";
 import { EnquirySubmissionPayload } from "@/types/enquiry";
 
@@ -50,6 +51,13 @@ async function verifyTurnstile(token: string) {
   return Boolean(result.success);
 }
 
+function escapeHtml(value: string) {
+  const entities: Record<string, string> = {
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  };
+  return value.replace(/[&<>"']/g, (character) => entities[character]);
+}
+
 function buildMessage(values: ReturnType<typeof sanitizeEnquiryValues>) {
   const rows = [
     ["Full Name", values.fullName],
@@ -62,6 +70,7 @@ function buildMessage(values: ReturnType<typeof sanitizeEnquiryValues>) {
     ["Exact Address", values.exactAddress],
     ["Business Type", values.businessType],
     ["Product Requirement", values.productRequirement],
+    ...(values.productRequirement === "Other" ? [["Other", values.otherProductRequirement]] : []),
     ["Estimated Quantity", values.estimatedQuantity],
     ["Requirement Description", values.requirementDescription]
   ];
@@ -86,7 +95,7 @@ function buildMessage(values: ReturnType<typeof sanitizeEnquiryValues>) {
           <p style="margin: 0 0 6px;">Email: <a href="mailto:${values.email}" style="color: #163825;">${values.email}</a></p>
           <p style="margin: 0;">Phone: <a href="tel:${values.mobileNumber}" style="color: #163825;">${values.mobileNumber}</a></p>
         </div>
-        <p style="margin: 0 0 14px; line-height: 1.7;">Use reply in your inbox to respond directly to the customer. A confirmation email has also been sent to them automatically.</p>
+        <p style="margin: 0 0 14px; line-height: 1.7;">Use reply in your inbox to respond directly to the customer. Their enquiry details are listed below.</p>
         <table style="border-collapse: collapse; width: 100%; max-width: 720px;">
         <tbody>
           ${rows
@@ -94,7 +103,7 @@ function buildMessage(values: ReturnType<typeof sanitizeEnquiryValues>) {
               ([label, value]) => `
                 <tr>
                   <td style="padding: 10px 12px; border: 1px solid #dcd4c4; font-weight: 700; width: 220px;">${label}</td>
-                  <td style="padding: 10px 12px; border: 1px solid #dcd4c4;">${value}</td>
+                  <td style="padding: 10px 12px; border: 1px solid #dcd4c4;">${escapeHtml(value)}</td>
                 </tr>
               `
             )
@@ -121,6 +130,7 @@ function buildCustomerConfirmation(values: ReturnType<typeof sanitizeEnquiryValu
     ["Exact Address", values.exactAddress],
     ["Business Type", values.businessType],
     ["Product Requirement", values.productRequirement],
+    ...(values.productRequirement === "Other" ? [["Other", values.otherProductRequirement]] : []),
     ["Estimated Quantity", values.estimatedQuantity],
     ["Requirement Description", values.requirementDescription]
   ];
@@ -162,7 +172,7 @@ function buildCustomerConfirmation(values: ReturnType<typeof sanitizeEnquiryValu
                   ([label, value]) => `
                     <tr>
                       <td style="padding: 8px 0; vertical-align: top; font-weight: 700; width: 180px;">${label}</td>
-                      <td style="padding: 8px 0; vertical-align: top;">${value}</td>
+                      <td style="padding: 8px 0; vertical-align: top;">${escapeHtml(value)}</td>
                     </tr>
                   `
                 )
@@ -230,7 +240,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const to = process.env.ENQUIRY_TO_EMAIL || process.env.SMTP_USER;
+    const to = process.env.ENQUIRY_TO_EMAIL || siteConfig.email;
     const from = process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER;
 
     if (!to || !from) {
@@ -255,16 +265,22 @@ export async function POST(request: Request) {
       html
     });
 
-    await transport.sendMail({
-      to: cleaned.email,
-      from,
-      replyTo: to,
-      subject: confirmation.subject,
-      text: confirmation.text,
-      html: confirmation.html
-    });
+    let confirmationSent = true;
+    try {
+      await transport.sendMail({
+        to: cleaned.email,
+        from,
+        replyTo: to,
+        subject: confirmation.subject,
+        text: confirmation.text,
+        html: confirmation.html
+      });
+    } catch {
+      confirmationSent = false;
+      console.warn("Enquiry received, but the customer confirmation email could not be sent.");
+    }
 
-    return NextResponse.json({ message: "Enquiry sent successfully." });
+    return NextResponse.json({ message: "Enquiry sent successfully.", confirmationSent });
   } catch (error) {
     return NextResponse.json(
       {

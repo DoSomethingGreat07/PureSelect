@@ -15,15 +15,15 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <main className="pt-30 sm:pt-32">
+      <main className="pt-[var(--site-header-height,148px)]">
         <HeroSection />
         <TrustMarquee />
         <StorySection />
         <BrandMetricsSection />
         <ProductPortfolio />
         <BusinessModelSection />
-        <TestimonialsSection />
         <RecipeSection />
+        <TestimonialsSection />
         <EnquirySection />
       </main>
       <FloatingWhatsApp />

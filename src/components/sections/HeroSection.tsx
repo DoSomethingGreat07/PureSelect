@@ -5,41 +5,16 @@ export function HeroSection() {
     <section id="home" className="hero-section section-anchor">
       <div className="hero-inner">
         <div className="hero-pill-wrap">
-          <span className="hero-eyebrow">Premium Telangana FMCG Brand</span>
+          <span className="hero-eyebrow">YOUR ONE-STOP FOR EVERYDAY GROCERIES</span>
         </div>
         <div className="hero-visual">
-          <div className="grain-float absolute left-[8%] top-[10%] h-28 w-28 rounded-full bg-[rgba(199,156,58,0.18)] blur-3xl" />
-          <div className="absolute right-[8%] top-[18%] h-52 w-52 rounded-full bg-[rgba(23,55,39,0.14)] blur-3xl" />
-          <div className="absolute inset-x-[8%] bottom-[6%] top-[12%] rounded-[28px] bg-[linear-gradient(145deg,rgba(232,222,189,0.5),rgba(233,244,228,0.16))]" />
           <Image
-            src="/images/hero/hero-bg-texture.png"
-            alt=""
-            fill
-            className="object-cover opacity-10 mix-blend-multiply"
-            sizes="(max-width: 1024px) 100vw, 42vw"
-          />
-          <Image
-            src="/images/products/roasted-chana-dal.png"
-            alt="Pure Select roasted Bengal gram pack"
-            width={300}
-            height={420}
-            className="pack-blend absolute left-[4%] top-[26%] z-10 w-[35%] rotate-[-12deg] object-contain drop-shadow-[0_26px_38px_rgba(23,55,39,0.16)]"
-            priority
-          />
-          <Image
-            src="/images/products/raw-peanuts.png"
-            alt="Pure Select raw peanuts pack"
-            width={340}
-            height={460}
-            className="pack-blend absolute left-[29%] top-[8%] z-30 w-[43%] object-contain drop-shadow-[0_28px_44px_rgba(23,55,39,0.18)]"
-            priority
-          />
-          <Image
-            src="/images/products/rajma-chitra.png"
-            alt="Pure Select rajma chitra pack"
-            width={300}
-            height={420}
-            className="pack-blend absolute right-[5%] top-[27%] z-20 w-[34%] rotate-[11deg] object-contain drop-shadow-[0_26px_38px_rgba(23,55,39,0.16)]"
+            src="/images/hero/ps-banner.png"
+            alt="Pure Select Rajma Chitra, Raw Peanuts, and Roasted Chana Dal. Everyday Essentials for a Healthier Tomorrow. Carefully selected groceries for you and your family. Carefully Selected, Quality Checked, Hygienically Packed, Trusted Sourcing Partners."
+            width={2016}
+            height={780}
+            className="block h-auto w-full"
+            sizes="100vw"
             priority
           />
         </div>

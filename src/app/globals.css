@@ -177,7 +177,7 @@ select {
 
 /* Anchor offset */
 .section-anchor {
-  scroll-margin-top: 120px;
+  scroll-margin-top: calc(var(--site-header-height, 148px) + 16px);
 }
 
 /* Header / Navbar */
@@ -314,19 +314,10 @@ select {
   max-width: none;
 }
 
-/* Hero visual must not look like a random empty box */
+/* Keep the supplied banner at its original aspect ratio. */
 .hero-visual {
-  position: relative;
-  min-height: clamp(280px, 45vh, 500px);
   width: 100%;
-  border-radius: 0;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 42% 28%, rgba(255, 250, 240, 0.95), transparent 34%),
-    linear-gradient(145deg, rgba(18, 53, 36, 0.12), rgba(199, 156, 58, 0.16)),
-    #d7decb;
-  border: 1px solid rgba(18, 53, 36, 0.12);
-  box-shadow: var(--shadow-medium);
 }
 
 .pack-blend {
@@ -352,28 +343,6 @@ select {
   }
 }
 
-.hero-visual::before {
-  content: "";
-  position: absolute;
-  inset: 28px;
-  border-radius: 32px;
-  border: 1px solid rgba(255, 250, 240, 0.42);
-  pointer-events: none;
-}
-
-.hero-visual::after {
-  content: "";
-  position: absolute;
-  right: -12%;
-  bottom: -24%;
-  width: 58%;
-  aspect-ratio: 1;
-  border-radius: 999px;
-  background: rgba(18, 53, 36, 0.12);
-  filter: blur(3px);
-  pointer-events: none;
-}
-
 @media (max-width: 768px) {
   .hero-section {
     padding-top: 12px;
@@ -382,11 +351,6 @@ select {
 
   .hero-inner {
     padding-inline: 0;
-  }
-
-  .hero-visual {
-    min-height: clamp(240px, 36vh, 340px);
-    border-radius: 0;
   }
 
   .hero-copy {
@@ -417,10 +381,6 @@ select {
     max-width: 22ch;
   }
 
-  .hero-visual::before {
-    inset: 16px;
-    border-radius: 24px;
-  }
 }
 
 /* Cards */

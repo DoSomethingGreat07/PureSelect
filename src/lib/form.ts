@@ -14,6 +14,7 @@ export const initialEnquiryValues: EnquiryFormValues = {
   exactAddress: "",
   businessType: "Restaurant",
   productRequirement: "",
+  otherProductRequirement: "",
   estimatedQuantity: "",
   requirementDescription: ""
 };
@@ -44,6 +45,7 @@ export const enquirySchema = z
     exactAddress: z.string().trim().regex(addressPattern, "Enter a complete address with at least 10 characters."),
     businessType: z.enum(businessTypeOptions),
     productRequirement: z.string().trim().min(1, "Product requirement is required."),
+    otherProductRequirement: z.string().trim().max(120, "Use 120 characters or fewer.").default(""),
     estimatedQuantity: z.string().trim().regex(quantityPattern, "Enter a valid quantity such as 500kg."),
     requirementDescription: z
       .string()
@@ -51,6 +53,14 @@ export const enquirySchema = z
       .refine((value) => !value || requirementPattern.test(value), "Enter a short valid requirement description.")
   })
   .superRefine((values, context) => {
+    if (values.productRequirement === "Other" && !values.otherProductRequirement) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["otherProductRequirement"],
+        message: "Please specify other."
+      });
+    }
+
     const allowedCities = indiaLocations[values.state] ?? [];
 
     if (!allowedCities.includes(values.city)) {
@@ -74,6 +84,7 @@ export function sanitizeEnquiryValues(values: EnquiryFormValues): EnquiryFormVal
     village: values.village.trim(),
     exactAddress: values.exactAddress.trim(),
     productRequirement: values.productRequirement.trim(),
+    otherProductRequirement: values.productRequirement.trim() === "Other" ? values.otherProductRequirement.trim() : "",
     estimatedQuantity: values.estimatedQuantity.trim(),
     requirementDescription: values.requirementDescription.trim()
   };
