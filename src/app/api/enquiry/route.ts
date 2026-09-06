@@ -33,10 +33,16 @@ function getSmtpTransport() {
   });
 }
 
-async function verifyTurnstile(token: string) {
+type TurnstileResult = {
+  success?: boolean;
+  hostname?: string;
+  "error-codes"?: string[];
+};
+
+async function verifyTurnstile(token: string): Promise<TurnstileResult> {
   const secret = process.env.TURNSTILE_SECRET_KEY;
 
-  if (!secret) return true;
+  if (!secret) return { success: true };
 
   const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
     method: "POST",
@@ -49,10 +55,9 @@ async function verifyTurnstile(token: string) {
     })
   });
 
-  if (!response.ok) return false;
+  if (!response.ok) return { success: false, "error-codes": ["siteverify-request-failed"] };
 
-  const result = (await response.json()) as { success?: boolean };
-  return Boolean(result.success);
+  return (await response.json()) as TurnstileResult;
 }
 
 function escapeHtml(value: string) {
@@ -227,8 +232,12 @@ export async function POST(request: Request) {
         return NextResponse.json({ message: "Captcha verification is required." }, { status: 400 });
       }
 
-      const isValidCaptcha = await verifyTurnstile(payload.turnstileToken);
-      if (!isValidCaptcha) {
+      const captchaResult = await verifyTurnstile(payload.turnstileToken);
+      if (!captchaResult.success) {
+        console.warn("Turnstile verification failed.", {
+          errorCodes: captchaResult["error-codes"] ?? [],
+          hostname: captchaResult.hostname ?? null
+        });
         return NextResponse.json({ message: "Captcha verification failed. Please try again." }, { status: 400 });
       }
     }

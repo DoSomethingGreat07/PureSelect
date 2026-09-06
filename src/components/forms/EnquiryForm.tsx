@@ -12,6 +12,13 @@ import { Button } from "@/components/ui/Button";
 
 type Errors = Partial<Record<keyof EnquiryFormValues, string>>;
 
+type TurnstileWindow = Window & {
+  onTurnstileSuccess?: (token: string) => void;
+  onTurnstileExpired?: () => void;
+  onTurnstileError?: () => void;
+  turnstile?: { reset: () => void };
+};
+
 const additionalProductGroups = [
   { label: "Pulses", items: ["Toor Dal", "Moong Dal", "Chana Dal", "Urad Dal", "Whole Chana"] },
   { label: "Cereals / Grains", items: ["Rice", "Poha (Flattened Rice)", "Idli Rava", "Puffed Rice"] },
@@ -46,17 +53,20 @@ export function EnquiryForm() {
   }, []);
 
   useEffect(() => {
-    const windowWithTurnstile = window as Window & {
-      onTurnstileSuccess?: (token: string) => void;
-      onTurnstileExpired?: () => void;
-    };
+    const windowWithTurnstile = window as TurnstileWindow;
 
     windowWithTurnstile.onTurnstileSuccess = (token: string) => setTurnstileToken(token);
     windowWithTurnstile.onTurnstileExpired = () => setTurnstileToken("");
+    windowWithTurnstile.onTurnstileError = () => {
+      setTurnstileToken("");
+      setStatus("error");
+      setMessage("Captcha verification could not start. Please refresh the page and try again.");
+    };
 
     return () => {
       delete windowWithTurnstile.onTurnstileSuccess;
       delete windowWithTurnstile.onTurnstileExpired;
+      delete windowWithTurnstile.onTurnstileError;
     };
   }, []);
 
@@ -162,6 +172,11 @@ export function EnquiryForm() {
       setMessage(
         error instanceof Error ? error.message : "Something went wrong while sending your enquiry. Please try again."
       );
+    } finally {
+      if (hasTurnstile) {
+        setTurnstileToken("");
+        (window as TurnstileWindow).turnstile?.reset();
+      }
     }
   };
 
@@ -345,6 +360,7 @@ export function EnquiryForm() {
             data-theme="light"
             data-callback="onTurnstileSuccess"
             data-expired-callback="onTurnstileExpired"
+            data-error-callback="onTurnstileError"
           />
         </div>
       ) : null}
