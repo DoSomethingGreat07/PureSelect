@@ -3,7 +3,7 @@ import { siteConfig } from "@/data/siteConfig";
 
 export const siteMetadata: Metadata = {
   metadataBase: new URL(siteConfig.website),
-  title: "Pure Select Enterprises LLP | Trusted Grocery Brand from Telangana",
+  title: "Pure Select| Trusted Grocery Brand from Telangana",
   description:
     "Pure Select is a Telangana-based FMCG grocery brand offering quality grocery essentials including peanuts, pulses, rajma, chana, dal, idli rava, and upma rava for retail consumers, HoReCa, institutional buyers, and bulk supply partners.",
   keywords: [
@@ -27,7 +27,22 @@ export const siteMetadata: Metadata = {
     url: siteConfig.website,
     siteName: siteConfig.legalName,
     locale: "en_IN",
-    type: "website"
+    type: "website",
+    images: [
+      {
+        url: "/images/logo/pure-select-logo-primary.png",
+        width: 1024,
+        height: 1024,
+        alt: "Pure Select logo"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pure Select Enterprises LLP | From Telangana Farms to Indian Kitchens",
+    description:
+      "A trusted Telangana grocery brand offering quality staples for households, retail, HoReCa, institutional supply, and bulk buyers.",
+    images: ["/images/logo/pure-select-logo-primary.png"]
   },
   alternates: {
     canonical: "/"
