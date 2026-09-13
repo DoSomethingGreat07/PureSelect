@@ -42,7 +42,6 @@ The `/api/enquiry` route requires a Node.js runtime. GitHub Pages and a static e
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Public website origin; defaults to `https://www.pureselect.in` |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | International number containing digits only; `917207085910` |
-| `NEXT_PUBLIC_BLINKIT_URL` | Header and general shopping destination |
 | `NEXT_PUBLIC_BLINKIT_URL_RAW_PEANUTS` | Raw Peanuts product URL |
 | `NEXT_PUBLIC_BLINKIT_URL_ROASTED_CHANA_DAL` | Roasted Chana Dal product URL |
 | `NEXT_PUBLIC_BLINKIT_URL_RAJMA_CHITRA` | Rajma Chitra product URL |

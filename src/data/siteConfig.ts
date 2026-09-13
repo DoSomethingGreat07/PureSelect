@@ -2,7 +2,8 @@ import { SiteConfig } from "@/types/site";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pureselect.in";
 const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "917207085910";
-const defaultBlinkitLink =
+const defaultBlinkitLink = "https://blinkit.com/s/?q=pure%20select";
+const defaultRawPeanutsBlinkitLink =
   "https://blinkit.com/prn/pure-select-raw-peanuts-palli/prid/793784?srsltid=AfmBOooLTIyM8EXCWTCovaJNvKI7Vebk_vKDcOZ00hfIVFzxuNXzPplW";
 const defaultRoastedChanaDalBlinkitLink =
   "https://blinkit.com/prn/pure-select-roasted-chana-dal-putnalu/prid/798934";
@@ -19,9 +20,9 @@ export const siteConfig: SiteConfig = {
   whatsappLink: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     "Hi Pure Select, I would like to enquire about your products and supply options."
   )}`,
-  blinkitLink: process.env.NEXT_PUBLIC_BLINKIT_URL || defaultBlinkitLink,
+  blinkitLink: defaultBlinkitLink,
   productBlinkitLinks: {
-    rawPeanuts: process.env.NEXT_PUBLIC_BLINKIT_URL_RAW_PEANUTS || defaultBlinkitLink,
+    rawPeanuts: process.env.NEXT_PUBLIC_BLINKIT_URL_RAW_PEANUTS || defaultRawPeanutsBlinkitLink,
     roastedChanaDal:
       process.env.NEXT_PUBLIC_BLINKIT_URL_ROASTED_CHANA_DAL || defaultRoastedChanaDalBlinkitLink,
     rajmaChitra:
