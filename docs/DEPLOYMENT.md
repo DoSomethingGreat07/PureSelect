@@ -9,7 +9,7 @@ The repository includes source, image assets, the npm lockfile, and CI. Environm
 
 ## Deploy with GoDaddy Node.js Hosting
 
-Use the Node.js Hosting product for this Next.js app. Connect the GitHub repository and branch `main`, with the repository root as the app root. The project uses Node.js 22, `npm ci`, `npm run build`, and `npm start`.
+Use the Node.js Hosting product for this Next.js app. Connect the GitHub repository and branch `main`, with the repository root as the app root. The project uses Node.js 22 and `npm ci`. The `start` script runs `next build` before `next start` because GoDaddy promotes Preview and Published variants separately and must not start the published variant without its Next.js build output.
 
 In the hosting secrets/environment screen, add the public values from `.env.example`, then configure the business mailbox:
 
