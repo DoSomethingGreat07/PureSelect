@@ -297,7 +297,21 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ message: "Enquiry sent successfully.", confirmationSent });
-  } catch {
+  } catch (error) {
+    const smtpError = error as Error & {
+      code?: string;
+      command?: string;
+      responseCode?: number;
+    };
+
+    console.error("Unable to deliver enquiry email.", {
+      name: smtpError.name,
+      message: smtpError.message,
+      code: smtpError.code,
+      command: smtpError.command,
+      responseCode: smtpError.responseCode
+    });
+
     return NextResponse.json(
       {
         message: "Unable to send the enquiry right now. Please try again or contact us by WhatsApp."
