@@ -33,6 +33,38 @@ function getSmtpTransport() {
   });
 }
 
+type EmailMessage = {
+  to: string;
+  from: string;
+  replyTo: string;
+  subject: string;
+  text: string;
+  html: string;
+};
+
+async function sendWithResend(apiKey: string, message: EmailMessage) {
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      from: message.from,
+      to: [message.to],
+      reply_to: message.replyTo,
+      subject: message.subject,
+      text: message.text,
+      html: message.html
+    })
+  });
+
+  if (!response.ok) {
+    const details = (await response.text()).slice(0, 500);
+    throw new Error(`Resend email request failed (${response.status}): ${details}`);
+  }
+}
+
 type TurnstileResult = {
   success?: boolean;
   hostname?: string;
@@ -245,9 +277,10 @@ export async function POST(request: Request) {
       }
     }
 
-    const transport = getSmtpTransport();
+    const resendApiKey = process.env.RESEND_API_KEY?.trim();
+    const transport = resendApiKey ? null : getSmtpTransport();
 
-    if (!transport) {
+    if (!resendApiKey && !transport) {
       return NextResponse.json(
         {
           message: "Email enquiries are temporarily unavailable. Please contact us by WhatsApp."
@@ -257,7 +290,10 @@ export async function POST(request: Request) {
     }
 
     const to = process.env.ENQUIRY_TO_EMAIL || siteConfig.email;
-    const from = process.env.SMTP_FROM_EMAIL || "Pure Select <care@pureselect.in>";
+    const from =
+      process.env.RESEND_FROM_EMAIL ||
+      process.env.SMTP_FROM_EMAIL ||
+      "Pure Select <care@pureselect.in>";
 
     if (!to || !from) {
       return NextResponse.json(
@@ -272,25 +308,37 @@ export async function POST(request: Request) {
     const { text, html } = buildMessage(cleaned);
     const confirmation = buildCustomerConfirmation(cleaned);
 
-    await transport.sendMail({
+    const businessMessage = {
       to,
       from,
       replyTo: cleaned.email,
       subject: `New Pure Select Enquiry - ${cleaned.productRequirement}`,
       text,
       html
-    });
+    };
+
+    if (resendApiKey) {
+      await sendWithResend(resendApiKey, businessMessage);
+    } else {
+      await transport!.sendMail(businessMessage);
+    }
 
     let confirmationSent = true;
     try {
-      await transport.sendMail({
+      const customerMessage = {
         to: cleaned.email,
         from,
         replyTo: to,
         subject: confirmation.subject,
         text: confirmation.text,
         html: confirmation.html
-      });
+      };
+
+      if (resendApiKey) {
+        await sendWithResend(resendApiKey, customerMessage);
+      } else {
+        await transport!.sendMail(customerMessage);
+      }
     } catch {
       confirmationSent = false;
       console.warn("Enquiry received, but the customer confirmation email could not be sent.");

@@ -20,6 +20,8 @@ SMTP_USER=care@pureselect.in
 SMTP_PASS=REPLACE_WITH_BUSINESS_MAILBOX_PASSWORD
 SMTP_FROM_EMAIL=Pure Select <care@pureselect.in>
 ENQUIRY_TO_EMAIL=pureselectenterprises@gmail.com
+RESEND_API_KEY=REPLACE_WITH_RESEND_API_KEY
+RESEND_FROM_EMAIL=Pure Select <enquiries@pureselect.in>
 ```
 
 Enter the password for the `care@pureselect.in` mailbox privately in GoDaddy, not the GoDaddy account password. The repository example and local configuration deliberately leave this password empty. Never commit credentials. Revoke the previously exposed personal Gmail app password in Google account settings; removing it from this project does not revoke it.
@@ -39,6 +41,7 @@ Configure both Turnstile keys for the deployment hostname before accepting publi
 5. Set `ENQUIRY_TO_EMAIL=pureselectenterprises@gmail.com`. Use a sender authorized by the SMTP account. For Gmail, use an App Password where supported by the account’s security settings.
 6. Set the public Blinkit product URLs exactly as shown in `.env.example`, including Roasted Chana Dal product `798934` and Rajma Chitra product `799507`.
 7. Set `NEXT_PUBLIC_TURNSTILE_ENABLED=true` and configure both Turnstile keys when CAPTCHA is enabled. Register the deployment hostname in Cloudflare. Leave the flag unset or set it to `false` to disable CAPTCHA; the form still has validation, a honeypot, and timing checks.
+8. GoDaddy Node.js Hosting blocks outbound SMTP on some plans. In that case, verify `pureselect.in` with Resend and configure `RESEND_API_KEY` and `RESEND_FROM_EMAIL`; the enquiry route will use the HTTPS API automatically and keep SMTP as a fallback when no Resend key is present.
 8. Deploy and check the generated deployment URL before changing the live domain. Preview environment variables are configured separately from Production. Use a test inbox in Preview if you plan to submit test enquiries there.
 9. Connect `pureselect.in` and `www.pureselect.in` using the DNS records Vercel gives you. The repository’s canonical URL is `https://www.pureselect.in`; use the same canonical hostname or update metadata, robots, sitemap, and `NEXT_PUBLIC_SITE_URL` together.
 10. Subsequent pushes to the connected production branch deploy through Vercel. GitHub CI checks the code; it does not itself deploy or hold SMTP secrets.
