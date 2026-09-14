@@ -34,7 +34,8 @@ export function EnquiryForm() {
   const formStartedAt = useRef(Date.now());
   const honeypotId = useId();
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
-  const hasTurnstile = Boolean(turnstileSiteKey);
+  const hasTurnstile =
+    process.env.NEXT_PUBLIC_TURNSTILE_ENABLED === "true" && Boolean(turnstileSiteKey);
   const cityOptions = values.state ? indiaLocations[values.state] ?? [] : [];
 
   useEffect(() => {

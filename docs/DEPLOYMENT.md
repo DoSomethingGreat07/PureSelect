@@ -38,7 +38,7 @@ Configure both Turnstile keys for the deployment hostname before accepting publi
 4. In the project’s environment settings, add the variables from `.env.example`. Enter the actual SMTP credentials privately in Vercel; do not upload `.env.local` to GitHub.
 5. Set `ENQUIRY_TO_EMAIL=pureselectenterprises@gmail.com`. Use a sender authorized by the SMTP account. For Gmail, use an App Password where supported by the account’s security settings.
 6. Set the public Blinkit product URLs exactly as shown in `.env.example`, including Roasted Chana Dal product `798934` and Rajma Chitra product `799507`.
-7. Configure both Turnstile keys if CAPTCHA is enabled, and register the deployment hostname in Cloudflare. Leaving both keys blank disables CAPTCHA; the form still has validation, a honeypot, and timing checks.
+7. Set `NEXT_PUBLIC_TURNSTILE_ENABLED=true` and configure both Turnstile keys when CAPTCHA is enabled. Register the deployment hostname in Cloudflare. Leave the flag unset or set it to `false` to disable CAPTCHA; the form still has validation, a honeypot, and timing checks.
 8. Deploy and check the generated deployment URL before changing the live domain. Preview environment variables are configured separately from Production. Use a test inbox in Preview if you plan to submit test enquiries there.
 9. Connect `pureselect.in` and `www.pureselect.in` using the DNS records Vercel gives you. The repository’s canonical URL is `https://www.pureselect.in`; use the same canonical hostname or update metadata, robots, sitemap, and `NEXT_PUBLIC_SITE_URL` together.
 10. Subsequent pushes to the connected production branch deploy through Vercel. GitHub CI checks the code; it does not itself deploy or hold SMTP secrets.

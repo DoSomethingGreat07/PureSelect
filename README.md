@@ -49,7 +49,8 @@ The `/api/enquiry` route requires a Node.js runtime. GitHub Pages and a static e
 | `SMTP_USER`, `SMTP_PASS` | Email account credentials; server-only |
 | `SMTP_FROM_EMAIL` | Sender address/name permitted by your SMTP account |
 | `ENQUIRY_TO_EMAIL` | Business inbox: `pureselectenterprises@gmail.com` |
-| `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Optional CAPTCHA; configure both or leave both blank |
+| `NEXT_PUBLIC_TURNSTILE_ENABLED` | Set to `true` to enable CAPTCHA; defaults to disabled |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Optional CAPTCHA keys used only when CAPTCHA is enabled |
 
 The sender account may differ from the business recipient. `Reply-To` lets the business reply to the customer and the customer reply to the business. If a customer confirmation fails after the business email succeeds, the enquiry remains successful and the form explains the missing confirmation.
 

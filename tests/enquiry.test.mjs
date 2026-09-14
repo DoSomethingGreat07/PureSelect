@@ -84,6 +84,7 @@ test("enquiry delivery, validation, product options, and captcha", async () => {
     console.log('PASS: business send failure stays an error; customer confirmation failure preserves successful enquiry');
     failAt = 0;
     sent.length = 0;
+    process.env.NEXT_PUBLIC_TURNSTILE_ENABLED = 'true';
     process.env.TURNSTILE_SECRET_KEY = 'test-only';
     res = await submit(valid);
     assert.equal(res.status, 400);
@@ -96,6 +97,7 @@ test("enquiry delivery, validation, product options, and captcha", async () => {
     assert.equal(res.status, 200);
     console.log('PASS: missing, rejected and successful captcha paths');
     sent.length = 0;
+    delete process.env.NEXT_PUBLIC_TURNSTILE_ENABLED;
     delete process.env.TURNSTILE_SECRET_KEY;
     res = await submit({ ...valid, fullName: "Ravi O'Neil" });
     assert.equal(res.status, 200);

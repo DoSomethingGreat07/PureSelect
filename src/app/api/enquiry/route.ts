@@ -227,7 +227,10 @@ export async function POST(request: Request) {
       );
     }
 
-    if (process.env.TURNSTILE_SECRET_KEY) {
+    if (
+      process.env.NEXT_PUBLIC_TURNSTILE_ENABLED === "true" &&
+      process.env.TURNSTILE_SECRET_KEY
+    ) {
       if (!payload.turnstileToken) {
         return NextResponse.json({ message: "Captcha verification is required." }, { status: 400 });
       }
